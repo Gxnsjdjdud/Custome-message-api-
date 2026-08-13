@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SwiftSMS — Custom SMS</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #070914;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .blob {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .28;
+      animation: move 9s infinite alternate ease-in-out;
+    }
+
+    .blob1 {
+      background: #7657ff;
+      top: -120px;
+      left: -100px;
+    }
+
+    .blob2 {
+      background: #00bfff;
+      right: -100px;
+      top: 250px;
+      animation-delay: 2s;
+    }
+
+    .blob3 {
+      background: #b64cff;
+      bottom: -150px;
+      left: 40%;
+      animation-delay: 4s;
+    }
+
+    @keyframes move {
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(50px, -40px);
+      }
+    }
+
+    /* Navbar */
+
+    nav {
+      width: 92%;
+      max-width: 1100px;
+      height: 80px;
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #8c75ff;
+    }
+
+    .nav-btn {
+      padding: 11px 18px;
+      border-radius: 12px;
+
+      color: white;
+      background: rgba(255,255,255,.07);
+
+      border: 1px solid rgba(255,255,255,.12);
+
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255,255,255,.14);
+      transform: translateY(-2px);
+    }
+
+    /* Hero */
+
+    .hero {
+      width: 92%;
+      max-width: 1100px;
+
+      margin: auto;
+      text-align: center;
+
+      padding: 90px 0 100px;
+    }
+
+    .badge {
+      display: inline-block;
+
+      padding: 8px 16px;
+
+      border-radius: 50px;
+
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+
+      color: #bbb1ff;
+
+      font-size: 13px;
+
+      animation: fadeDown .8s ease;
+    }
+
+    h1 {
+      margin-top: 25px;
+
+      font-size: clamp(48px, 9vw, 90px);
+
+      line-height: .95;
+
+      letter-spacing: -4px;
+
+      animation: fadeUp .8s ease;
+    }
+
+    h1 span {
+      display: block;
+
+      background: linear-gradient(
+        90deg,
+        #816dff,
+        #00d4ff,
+        #b765ff
+      );
+
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 650px;
+
+      margin: 30px auto;
+
+      color: #a3a7b8;
+
+      font-size: 17px;
+
+      line-height: 1.7;
+    }
+
+    .start-btn {
+      padding: 16px 30px;
+
+      border: none;
+      border-radius: 15px;
+
+      background: linear-gradient(
+        135deg,
+        #705cff,
+        #9b52ff
+      );
+
+      color: white;
+
+      font-size: 16px;
+      font-weight: bold;
+
+      cursor: pointer;
+
+      box-shadow: 0 15px 45px rgba(110,80,255,.3);
+
+      transition: .3s;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+
+      box-shadow:
+        0 20px 60px rgba(110,80,255,.45);
+    }
+
+    /* Features */
+
+    .features {
+      max-width: 1000px;
+
+      margin: 70px auto 0;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 25px;
+
+      border-radius: 20px;
+
+      background: rgba(255,255,255,.045);
+
+      border: 1px solid rgba(255,255,255,.08);
+
+      backdrop-filter: blur(15px);
+
+      transition: .3s;
+    }
+
+    .feature:hover {
+      transform: translateY(-8px);
+
+      border-color: rgba(130,110,255,.4);
+
+      background: rgba(255,255,255,.07);
+    }
+
+    .icon {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      margin: 0;
+
+      font-size: 13px;
+
+      color: #858a9d;
+
+      line-height: 1.5;
+    }
+
+    /* Send Section */
+
+    #sendSection {
+      width: 92%;
+      max-width: 700px;
+
+      margin: auto;
+
+      padding: 70px 0 120px;
+    }
+
+    .label {
+      text-align: center;
+
+      color: #8c75ff;
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+      letter-spacing: 2px;
+    }
+
+    .send-title {
+      text-align: center;
+
+      margin-top: 12px;
+
+      font-size: 42px;
+    }
+
+    .send-title span {
+      color: #8c75ff;
+    }
+
+    .description {
+      text-align: center;
+
+      color: #8d92a4;
+
+      margin: 12px 0 35px;
+    }
+
+    /* Card */
+
+    .card {
+      padding: 30px;
+
+      border-radius: 25px;
+
+      background: rgba(13,16,31,.85);
+
+      border: 1px solid rgba(255,255,255,.09);
+
+      backdrop-filter: blur(20px);
+
+      box-shadow: 0 30px 80px rgba(0,0,0,.4);
+
+      animation: fadeUp .8s ease;
+    }
+
+    .group {
+      margin-bottom: 23px;
+    }
+
+    label {
+      display: block;
+
+      margin-bottom: 10px;
+
+      font-size: 14px;
+
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+
+      width: 100%;
+
+      padding: 15px;
+
+      border-radius: 14px;
+
+      outline: none;
+
+      border: 1px solid rgba(255,255,255,.1);
+
+      background: rgba(255,255,255,.045);
+
+      color: white;
+
+      font-size: 15px;
+
+      transition: .25s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #8270ff;
+
+      box-shadow:
+        0 0 0 3px rgba(130,112,255,.1);
+    }
+
+    textarea {
+      min-height: 160px;
+
+      resize: vertical;
+
+      line-height: 1.6;
+    }
+
+    .help {
+      margin-top: 7px;
+
+      display: block;
+
+      color: #707588;
+
+      font-size: 12px;
+    }
+
+    .message-top {
+      display: flex;
+
+      justify-content: space-between;
+    }
+
+    #counter {
+      color: #777c8e;
+
+      font-size: 12px;
+    }
+
+    .notice {
+      padding: 13px;
+
+      margin-bottom: 20px;
+
+      border-radius: 12px;
+
+      background: rgba(255,193,7,.05);
+
+      border: 1px solid rgba(255,193,7,.12);
+
+      color: #9fa4b5;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+    }
+
+    /* Send */
+
+    #sendBtn {
+
+      width: 100%;
+
+      padding: 16px;
+
+      border: none;
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #705cff,
+          #9855ff
+        );
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: .3s;
+    }
+
+    #sendBtn:hover {
+      transform: translateY(-2px);
+    }
+
+    #sendBtn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      display: none;
+
+      width: 18px;
+      height: 18px;
+
+      border: 3px solid rgba(255,255,255,.3);
+
+      border-top-color: white;
+
+      border-radius: 50%;
+
+      animation: spin .7s linear infinite;
+
+      margin: auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Result */
+
+    #result {
+      margin-top: 18px;
+    }
+
+    .success,
+    .error {
+
+      padding: 13px;
+
+      border-radius: 12px;
+
+      text-align: center;
+
+      font-size: 14px;
+    }
+
+    .success {
+      background: rgba(0,220,130,.08);
+
+      border: 1px solid rgba(0,220,130,.2);
+
+      color: #61ffad;
+    }
+
+    .error {
+      background: rgba(255,60,60,.08);
+
+      border: 1px solid rgba(255,60,60,.2);
+
+      color: #ff7777;
+    }
+
+    /* Footer */
+
+    footer {
+
+      width: 92%;
+      max-width: 1100px;
+
+      margin: auto;
+
+      padding: 25px 0 35px;
+
+      border-top:
+        1px solid rgba(255,255,255,.06);
+
+      display: flex;
+
+      justify-content: space-between;
+
+      color: #606577;
+
+      font-size: 12px;
+    }
+
+    /* Animations */
+
+    @keyframes fadeUp {
+
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+    @keyframes fadeDown {
+
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+    /* Mobile */
+
+    @media(max-width:700px) {
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .send-title {
+        font-size: 34px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      footer {
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 8px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="bg">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="logo">
+      <span>✦</span> SwiftSMS
+    </div>
+
+    <button
+      class="nav-btn"
+      onclick="goToSend()"
+    >
+      Get Started
+    </button>
+
+  </nav>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="badge">
+      ⚡ Simple • Fast • Secure
+    </div>
+
+    <h1>
+      Send SMS
+      <span>Simply.</span>
+    </h1>
+
+    <p>
+      Send your custom text message to a valid
+      international phone number with a simple
+      and beautiful interface.
+    </p>
+
+    <button
+      class="start-btn"
+      onclick="goToSend()"
+    >
+      Get Started →
+    </button>
+
+
+    <div class="features">
+
+      <div class="feature">
+
+        <div class="icon">📱</div>
+
+        <h3>
+          International
+        </h3>
+
+        <p>
+          Enter your phone number with
+          country code.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="icon">✍️</div>
+
+        <h3>
+          Custom Message
+        </h3>
+
+        <p>
+          Write your own message before
+          sending.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="icon">⚡</div>
+
+        <h3>
+          Fast Delivery
+        </h3>
+
+        <p>
+          Submit your SMS through
+          the connected API.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SEND -->
+
+  <section id="sendSection">
+
+    <div class="label">
+      ✦ SMS CENTER
+    </div>
+
+    <h2 class="send-title">
+      Send your
+      <span>message</span>
+    </h2>
+
+    <p class="description">
+      Enter an international number and your message.
+    </p>
+
+
+    <div class="card">
+
+      <!-- PHONE -->
+
+      <div class="group">
+
+        <label>
+          📞 Phone Number
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="+8801XXXXXXXXX"
+        >
+
+        <span class="help">
+          Example: +8801XXXXXXXXX
+        </span>
+
+      </div>
+
+
+      <!-- MESSAGE -->
+
+      <div class="group">
+
+        <div class="message-top">
+
+          <label>
+            💬 Custom Message
+          </label>
+
+          <span id="counter">
+            0 / 500
+          </span>
+
+        </div>
+
+        <textarea
+          id="message"
+          maxlength="500"
+          placeholder="Write your message here..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="notice">
+        🔒 Please only send messages to people who
+        have consented to receive your communication.
+      </div>
+
+
+      <!-- SEND BUTTON -->
+
+      <button
+        id="sendBtn"
+        onclick="sendSMS()"
+      >
+
+        <span id="sendText">
+          Send SMS
+        </span>
+
+        <span
+          id="loading"
+          class="loading"
+        ></span>
+
+      </button>
+
+
+      <div id="result"></div>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+
+    <span>
+      © 2026 SwiftSMS
+    </span>
+
+    <span>
+      Custom SMS Platform
+    </span>
+
+  </footer>
+
+
+  <script>
+
+    /* =========================
+       SETTINGS
+    ========================== */
+
+    /*
+      IMPORTANT:
+
+      Browser-side API keys are NOT secure.
+
+      For temporary testing only,
+      you can put your API information here.
+
+      Before Render production deployment,
+      move this API call to a backend.
+    */
+
+    const API_KEY = "YOUR_API_KEY";
+
+    /*
+      Replace this with the exact
+      HTTPSMS REST endpoint from
+      your HTTPSMS API documentation.
+    */
+
+    const API_URL = "YOUR_HTTPSMS_API_ENDPOINT";
+
+    /*
+      Sender number configured in
+      your HTTPSMS account.
+    */
+
+    const FROM_NUMBER = "+18005550199";
+
+
+    /* =========================
+       NAVIGATION
+    ========================== */
+
+    function goToSend() {
+
+      document
+        .getElementById("sendSection")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================
+       CHARACTER COUNTER
+    ========================== */
+
+    const message =
+      document.getElementById("message");
+
+    const counter =
+      document.getElementById("counter");
+
+
+    message.addEventListener(
+      "input",
+      function () {
+
+        counter.textContent =
+          message.value.length + " / 500";
+
+      }
+    );
+
+
+    /* =========================
+       RESULT
+    ========================== */
+
+    function showResult(text, type) {
+
+      document.getElementById("result")
+        .innerHTML = `
+          <div class="${type}">
+            ${text}
+          </div>
+        `;
+
+    }
+
+
+    /* =========================
+       SEND SMS
+    ========================== */
+
+    async function sendSMS() {
+
+      const phone =
+        document.getElementById("phone")
+          .value.trim();
+
+      const text =
+        message.value.trim();
+
+
+      if (!phone) {
+
+        showResult(
+          "Please enter a phone number.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      /*
+        E.164 format validation
+        Example:
+        +8801XXXXXXXXX
+        +14155552671
+      */
+
+      if (!/^\+[1-9]\d{7,14}$/.test(phone)) {
+
+        showResult(
+          "Please enter a valid international phone number.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (!text) {
+
+        showResult(
+          "Please write your message.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (text.length > 500) {
+
+        showResult(
+          "Message cannot exceed 500 characters.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const button =
+        document.getElementById("sendBtn");
+
+      const sendText =
+        document.getElementById("sendText");
+
+      const loader =
+        document.getElementById("loading");
+
+
+      button.disabled = true;
+
+      sendText.style.display = "none";
+      loader.style.display = "block";
+
+
+      try {
+
+        /*
+          IMPORTANT:
+
+          The exact JSON body depends
+          on your HTTPSMS API version.
+
+          This is the common structure:
+
+          {
+            content: text,
+            from: FROM_NUMBER,
+            to: phone
+          }
+        */
+
+        const response = await fetch(
+          API_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Authorization":
+                "Bearer " + API_KEY,
+
+              "Content-Type":
+                "application/json",
+
+              "Accept":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+
+              content: text,
+
+              from: FROM_NUMBER,
+
+              to: phone
+
+            })
+
+          }
+        );
+
+
+        const data =
+          await response.json()
+            .catch(() => ({}));
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "SMS could not be sent."
+          );
+
+        }
+
+
+        showResult(
+          "✓ SMS request submitted successfully.",
+          "success"
+        );
+
+
+        message.value = "";
+
+        counter.textContent =
+          "0 / 500";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showResult(
+          "✕ " + error.message,
+          "error"
+        );
+
+      } finally {
+
+        button.disabled = false;
+
+        sendText.style.display =
+          "inline";
+
+        loader.style.display =
+          "none";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+  </html>
