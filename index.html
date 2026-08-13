@@ -84,7 +84,7 @@
 
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: centers;
     }
 
     .logo {
@@ -829,37 +829,24 @@
   <script>
 
     /* =========================
-       SETTINGS
+       SETTINGS - httpsms.com
     ========================== */
 
     /*
       IMPORTANT:
-
       Browser-side API keys are NOT secure.
-
-      For temporary testing only,
-      you can put your API information here.
-
-      Before Render production deployment,
-      move this API call to a backend.
+      শুধু টেস্টিং এর জন্য।
+      প্রোডাকশনে backend ব্যবহার করো।
     */
 
-    const API_KEY = "YOUR_API_KEY";
+    // ↓↓↓ এখানে নিজের API Key বসাও ↓↓↓
+    const API_KEY = "YOUR_API_KEY_HERE";   // https://httpsms.com/settings থেকে নাও
 
-    /*
-      Replace this with the exact
-      HTTPSMS REST endpoint from
-      your HTTPSMS API documentation.
-    */
+    // ↓↓↓ এখানে তোমার ফোন নম্বর (httpsms অ্যাপে রেজিস্টার করা) বসাও ↓↓↓
+    const FROM_NUMBER = "+18005550199";    // উদাহরণ: +8801XXXXXXXXX
 
-    const API_URL = "YOUR_HTTPSMS_API_ENDPOINT";
-
-    /*
-      Sender number configured in
-      your HTTPSMS account.
-    */
-
-    const FROM_NUMBER = "+18005550199";
+    // অফিসিয়াল Endpoint
+    const API_URL = "https://api.httpsms.com/v1/messages/send";
 
 
     /* =========================
@@ -867,13 +854,11 @@
     ========================== */
 
     function goToSend() {
-
       document
         .getElementById("sendSection")
         .scrollIntoView({
           behavior: "smooth"
         });
-
     }
 
 
@@ -881,22 +866,12 @@
        CHARACTER COUNTER
     ========================== */
 
-    const message =
-      document.getElementById("message");
+    const message = document.getElementById("message");
+    const counter = document.getElementById("counter");
 
-    const counter =
-      document.getElementById("counter");
-
-
-    message.addEventListener(
-      "input",
-      function () {
-
-        counter.textContent =
-          message.value.length + " / 500";
-
-      }
-    );
+    message.addEventListener("input", function () {
+      counter.textContent = message.value.length + " / 500";
+    });
 
 
     /* =========================
@@ -904,197 +879,89 @@
     ========================== */
 
     function showResult(text, type) {
-
-      document.getElementById("result")
-        .innerHTML = `
-          <div class="${type}">
-            ${text}
-          </div>
-        `;
-
+      document.getElementById("result").innerHTML = `
+        <div class="${type}">
+          ${text}
+        </div>
+      `;
     }
 
 
     /* =========================
-       SEND SMS
+       SEND SMS (httpsms API)
     ========================== */
 
     async function sendSMS() {
 
-      const phone =
-        document.getElementById("phone")
-          .value.trim();
-
-      const text =
-        message.value.trim();
-
+      const phone = document.getElementById("phone").value.trim();
+      const text = message.value.trim();
 
       if (!phone) {
-
-        showResult(
-          "Please enter a phone number.",
-          "error"
-        );
-
+        showResult("Please enter a phone number.", "error");
         return;
-
       }
 
-
-      /*
-        E.164 format validation
-        Example:
-        +8801XXXXXXXXX
-        +14155552671
-      */
-
+      // E.164 format validation
       if (!/^\+[1-9]\d{7,14}$/.test(phone)) {
-
-        showResult(
-          "Please enter a valid international phone number.",
-          "error"
-        );
-
+        showResult("Please enter a valid international phone number.", "error");
         return;
-
       }
-
 
       if (!text) {
-
-        showResult(
-          "Please write your message.",
-          "error"
-        );
-
+        showResult("Please write your message.", "error");
         return;
-
       }
-
 
       if (text.length > 500) {
-
-        showResult(
-          "Message cannot exceed 500 characters.",
-          "error"
-        );
-
+        showResult("Message cannot exceed 500 characters.", "error");
         return;
-
       }
 
-
-      const button =
-        document.getElementById("sendBtn");
-
-      const sendText =
-        document.getElementById("sendText");
-
-      const loader =
-        document.getElementById("loading");
-
+      const button = document.getElementById("sendBtn");
+      const sendText = document.getElementById("sendText");
+      const loader = document.getElementById("loading");
 
       button.disabled = true;
-
       sendText.style.display = "none";
       loader.style.display = "block";
 
-
       try {
 
-        /*
-          IMPORTANT:
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "x-api-key": API_KEY,          // ← httpsms এর সঠিক header
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            content: text,                 // মেসেজ
+            from: FROM_NUMBER,             // তোমার নম্বর
+            to: phone                      // রিসিভারের নম্বর
+          })
+        });
 
-          The exact JSON body depends
-          on your HTTPSMS API version.
-
-          This is the common structure:
-
-          {
-            content: text,
-            from: FROM_NUMBER,
-            to: phone
-          }
-        */
-
-        const response = await fetch(
-          API_URL,
-          {
-            method: "POST",
-
-            headers: {
-              "Authorization":
-                "Bearer " + API_KEY,
-
-              "Content-Type":
-                "application/json",
-
-              "Accept":
-                "application/json"
-            },
-
-            body: JSON.stringify({
-
-              content: text,
-
-              from: FROM_NUMBER,
-
-              to: phone
-
-            })
-
-          }
-        );
-
-
-        const data =
-          await response.json()
-            .catch(() => ({}));
-
+        const data = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-
           throw new Error(
-            data.message ||
-            "SMS could not be sent."
+            data.message || "SMS could not be sent."
           );
-
         }
 
-
-        showResult(
-          "✓ SMS request submitted successfully.",
-          "success"
-        );
-
+        showResult("✓ SMS request submitted successfully.", "success");
 
         message.value = "";
-
-        counter.textContent =
-          "0 / 500";
-
+        counter.textContent = "0 / 500";
 
       } catch (error) {
-
         console.error(error);
-
-        showResult(
-          "✕ " + error.message,
-          "error"
-        );
-
+        showResult("✕ " + error.message, "error");
       } finally {
-
         button.disabled = false;
-
-        sendText.style.display =
-          "inline";
-
-        loader.style.display =
-          "none";
-
+        sendText.style.display = "inline";
+        loader.style.display = "none";
       }
-
     }
 
   </script>
