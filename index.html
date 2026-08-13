@@ -25,7 +25,9 @@ body{
     overflow-x:hidden;
 }
 
-/* BACKGROUND */
+/* =========================
+   BACKGROUND
+========================= */
 
 .bg{
     position:fixed;
@@ -74,7 +76,9 @@ body{
     }
 }
 
-/* NAV */
+/* =========================
+   NAVBAR
+========================= */
 
 nav{
     width:92%;
@@ -114,12 +118,15 @@ nav{
     transform:translateY(-2px);
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
     width:92%;
     max-width:1100px;
     margin:auto;
+
     text-align:center;
 
     padding:90px 0 100px;
@@ -133,7 +140,9 @@ nav{
     border-radius:50px;
 
     background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.12);
+
+    border:
+        1px solid rgba(255,255,255,.12);
 
     color:#bbb1ff;
 
@@ -145,7 +154,8 @@ nav{
 h1{
     margin-top:25px;
 
-    font-size:clamp(48px,9vw,90px);
+    font-size:
+        clamp(48px,9vw,90px);
 
     line-height:.95;
 
@@ -166,6 +176,7 @@ h1 span{
         );
 
     -webkit-background-clip:text;
+
     color:transparent;
 }
 
@@ -185,6 +196,7 @@ h1 span{
     padding:16px 30px;
 
     border:none;
+
     border-radius:15px;
 
     background:
@@ -197,24 +209,31 @@ h1 span{
     color:white;
 
     font-size:16px;
+
     font-weight:bold;
 
     cursor:pointer;
 
     box-shadow:
-        0 15px 45px rgba(110,80,255,.3);
+        0 15px 45px
+        rgba(110,80,255,.3);
 
     transition:.3s;
 }
 
 .start-btn:hover{
-    transform:translateY(-4px) scale(1.02);
+    transform:
+        translateY(-4px)
+        scale(1.02);
 
     box-shadow:
-        0 20px 60px rgba(110,80,255,.45);
+        0 20px 60px
+        rgba(110,80,255,.45);
 }
 
-/* FEATURES */
+/* =========================
+   FEATURES
+========================= */
 
 .features{
     max-width:1000px;
@@ -234,9 +253,11 @@ h1 span{
 
     border-radius:20px;
 
-    background:rgba(255,255,255,.045);
+    background:
+        rgba(255,255,255,.045);
 
-    border:1px solid rgba(255,255,255,.08);
+    border:
+        1px solid rgba(255,255,255,.08);
 
     backdrop-filter:blur(15px);
 
@@ -255,6 +276,7 @@ h1 span{
 
 .icon{
     font-size:30px;
+
     margin-bottom:15px;
 }
 
@@ -263,8 +285,6 @@ h1 span{
 }
 
 .feature p{
-    margin:0;
-
     font-size:13px;
 
     color:#858a9d;
@@ -272,7 +292,9 @@ h1 span{
     line-height:1.5;
 }
 
-/* SEND SECTION */
+/* =========================
+   SEND SECTION
+========================= */
 
 #sendSection{
     width:92%;
@@ -312,24 +334,30 @@ h1 span{
 
     color:#8d92a4;
 
-    margin:12px 0 35px;
+    margin:
+        12px 0 35px;
 }
 
-/* CARD */
+/* =========================
+   CARD
+========================= */
 
 .card{
     padding:30px;
 
     border-radius:25px;
 
-    background:rgba(13,16,31,.85);
+    background:
+        rgba(13,16,31,.85);
 
-    border:1px solid rgba(255,255,255,.09);
+    border:
+        1px solid rgba(255,255,255,.09);
 
     backdrop-filter:blur(20px);
 
     box-shadow:
-        0 30px 80px rgba(0,0,0,.4);
+        0 30px 80px
+        rgba(0,0,0,.4);
 
     animation:fadeUp .8s ease;
 }
@@ -376,7 +404,8 @@ textarea:focus{
     border-color:#8270ff;
 
     box-shadow:
-        0 0 0 3px rgba(130,112,255,.1);
+        0 0 0 3px
+        rgba(130,112,255,.1);
 }
 
 textarea{
@@ -388,9 +417,9 @@ textarea{
 }
 
 .help{
-    margin-top:7px;
-
     display:block;
+
+    margin-top:7px;
 
     color:#707588;
 
@@ -409,7 +438,9 @@ textarea{
     font-size:12px;
 }
 
-/* NOTICE */
+/* =========================
+   NOTICE
+========================= */
 
 .notice{
     padding:13px;
@@ -431,10 +462,14 @@ textarea{
     line-height:1.5;
 }
 
-/* BUTTON */
+/* =========================
+   SEND BUTTON
+========================= */
 
 #sendBtn{
     width:100%;
+
+    min-height:52px;
 
     padding:16px;
 
@@ -458,8 +493,6 @@ textarea{
     cursor:pointer;
 
     transition:.3s;
-
-    min-height:52px;
 }
 
 #sendBtn:hover:not(:disabled){
@@ -468,10 +501,13 @@ textarea{
 
 #sendBtn:disabled{
     opacity:.6;
+
     cursor:not-allowed;
 }
 
-/* LOADER */
+/* =========================
+   LOADER
+========================= */
 
 .loading{
     display:none;
@@ -480,13 +516,15 @@ textarea{
     height:19px;
 
     border:
-        3px solid rgba(255,255,255,.3);
+        3px solid
+        rgba(255,255,255,.3);
 
     border-top-color:white;
 
     border-radius:50%;
 
-    animation:spin .7s linear infinite;
+    animation:
+        spin .7s linear infinite;
 
     margin:auto;
 }
@@ -497,7 +535,9 @@ textarea{
     }
 }
 
-/* RESULT */
+/* =========================
+   RESULT
+========================= */
 
 #result{
     margin-top:18px;
@@ -521,7 +561,8 @@ textarea{
         rgba(0,220,130,.08);
 
     border:
-        1px solid rgba(0,220,130,.2);
+        1px solid
+        rgba(0,220,130,.2);
 
     color:#61ffad;
 }
@@ -531,14 +572,17 @@ textarea{
         rgba(255,60,60,.08);
 
     border:
-        1px solid rgba(255,60,60,.2);
+        1px solid
+        rgba(255,60,60,.2);
 
     color:#ff7777;
 }
 
-/* STATUS */
+/* =========================
+   STATUS
+========================= */
 
-.status-box{
+.status{
     display:none;
 
     margin-top:12px;
@@ -551,27 +595,35 @@ textarea{
         rgba(255,255,255,.04);
 
     border:
-        1px solid rgba(255,255,255,.08);
+        1px solid
+        rgba(255,255,255,.08);
 
     color:#9ea3b5;
 
     text-align:center;
 
     font-size:12px;
+
+    line-height:1.5;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
     width:92%;
+
     max-width:1100px;
 
     margin:auto;
 
-    padding:25px 0 35px;
+    padding:
+        25px 0 35px;
 
     border-top:
-        1px solid rgba(255,255,255,.06);
+        1px solid
+        rgba(255,255,255,.06);
 
     display:flex;
 
@@ -582,37 +634,47 @@ footer{
     font-size:12px;
 }
 
-/* ANIMATIONS */
+/* =========================
+   ANIMATIONS
+========================= */
 
 @keyframes fadeUp{
 
     from{
         opacity:0;
-        transform:translateY(30px);
+
+        transform:
+            translateY(30px);
     }
 
     to{
         opacity:1;
-        transform:translateY(0);
-    }
 
+        transform:
+            translateY(0);
+    }
 }
 
 @keyframes fadeDown{
 
     from{
         opacity:0;
-        transform:translateY(-20px);
+
+        transform:
+            translateY(-20px);
     }
 
     to{
         opacity:1;
-        transform:translateY(0);
-    }
 
+        transform:
+            translateY(0);
+    }
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -643,21 +705,31 @@ footer{
 
         gap:8px;
     }
-
 }
 </style>
 </head>
 
+
 <body>
 
+<!-- =========================
+     BACKGROUND
+========================= -->
+
 <div class="bg">
+
     <div class="blob blob1"></div>
+
     <div class="blob blob2"></div>
+
     <div class="blob blob3"></div>
+
 </div>
 
 
-<!-- NAVBAR -->
+<!-- =========================
+     NAVBAR
+========================= -->
 
 <nav>
 
@@ -675,7 +747,9 @@ footer{
 </nav>
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero">
 
@@ -684,14 +758,19 @@ footer{
     </div>
 
     <h1>
+
         Send SMS
-        <span>Simply.</span>
+
+        <span>
+            Simply.
+        </span>
+
     </h1>
 
     <p>
-        Send a custom text message to a valid
-        international phone number through
-        a simple and beautiful interface.
+        Send a custom text message
+        to an international phone number
+        through a simple interface.
     </p>
 
     <button
@@ -704,6 +783,7 @@ footer{
 
     <div class="features">
 
+
         <div class="feature">
 
             <div class="icon">
@@ -715,8 +795,8 @@ footer{
             </h3>
 
             <p>
-                Enter your phone number
-                with country code.
+                Enter a valid international
+                phone number.
             </p>
 
         </div>
@@ -747,12 +827,12 @@ footer{
             </div>
 
             <h3>
-                Fast
+                Fast API
             </h3>
 
             <p>
-                Send your request through
-                the Textbelt SMS API.
+                Send through the
+                Textbelt SMS API.
             </p>
 
         </div>
@@ -762,7 +842,9 @@ footer{
 </section>
 
 
-<!-- SEND -->
+<!-- =========================
+     SEND SECTION
+========================= -->
 
 <section id="sendSection">
 
@@ -771,8 +853,13 @@ footer{
     </div>
 
     <h2 class="send-title">
+
         Send your
-        <span>message</span>
+
+        <span>
+            message
+        </span>
+
     </h2>
 
     <p class="description">
@@ -782,6 +869,7 @@ footer{
 
 
     <div class="card">
+
 
         <!-- PHONE -->
 
@@ -800,8 +888,8 @@ footer{
             >
 
             <span class="help">
-                Use international E.164 format.
-                Example: +8801XXXXXXXXX
+                Example:
+                +8801XXXXXXXXX
             </span>
 
         </div>
@@ -832,14 +920,18 @@ footer{
         </div>
 
 
+        <!-- NOTICE -->
+
         <div class="notice">
-            🔒 Please only send messages to people
-            who have explicitly agreed to receive
-            your communication.
+
+            🔒 Please only send messages
+            to people who have consented
+            to receive your communication.
+
         </div>
 
 
-        <!-- SEND -->
+        <!-- BUTTON -->
 
         <button
             id="sendBtn"
@@ -858,17 +950,27 @@ footer{
         </button>
 
 
+        <!-- RESULT -->
+
         <div id="result"></div>
 
+
+        <!-- STATUS -->
+
         <div
-            id="statusBox"
-            class="status-box"
+            id="status"
+            class="status"
         ></div>
+
 
     </div>
 
 </section>
 
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
@@ -890,11 +992,9 @@ footer{
 ===================================== */
 
 /*
-   Textbelt's public free test key.
+   Textbelt official free test key.
 
-   According to Textbelt's official docs:
-   key = "textbelt"
-   gives 1 free text per day.
+   1 free text per day.
 */
 
 const TEXTBELT_KEY = "textbelt";
@@ -919,8 +1019,11 @@ function goToSend(){
 
 
 /* =====================================
-   CHARACTER COUNTER
+   ELEMENTS
 ===================================== */
+
+const phoneInput =
+    document.getElementById("phone");
 
 const messageInput =
     document.getElementById("message");
@@ -928,6 +1031,25 @@ const messageInput =
 const counter =
     document.getElementById("counter");
 
+const sendBtn =
+    document.getElementById("sendBtn");
+
+const sendText =
+    document.getElementById("sendText");
+
+const loading =
+    document.getElementById("loading");
+
+const result =
+    document.getElementById("result");
+
+const statusBox =
+    document.getElementById("status");
+
+
+/* =====================================
+   COUNTER
+===================================== */
 
 messageInput.addEventListener(
     "input",
@@ -942,55 +1064,74 @@ messageInput.addEventListener(
 
 
 /* =====================================
-   RESULT
+   SHOW RESULT
 ===================================== */
 
 function showResult(
-    message,
+    text,
     type
 ){
 
-    document.getElementById(
-        "result"
-    ).innerHTML = `
-        <div class="${type}">
-            ${escapeHTML(message)}
-        </div>
-    `;
+    result.innerHTML = "";
 
-}
-
-
-/* =====================================
-   HTML ESCAPE
-===================================== */
-
-function escapeHTML(value){
-
-    const div =
+    const box =
         document.createElement("div");
 
-    div.textContent = value;
+    box.className = type;
 
-    return div.innerHTML;
+    box.textContent = text;
+
+    result.appendChild(box);
 
 }
 
 
 /* =====================================
-   STATUS
+   SHOW STATUS
 ===================================== */
 
 function showStatus(text){
 
-    const box =
-        document.getElementById(
-            "statusBox"
-        );
+    statusBox.style.display =
+        "block";
 
-    box.style.display = "block";
+    statusBox.textContent =
+        text;
 
-    box.textContent = text;
+}
+
+
+/* =====================================
+   CLEAR STATUS
+===================================== */
+
+function clearStatus(){
+
+    statusBox.style.display =
+        "none";
+
+    statusBox.textContent =
+        "";
+
+}
+
+
+/* =====================================
+   VALIDATE PHONE
+===================================== */
+
+function isValidPhone(phone){
+
+    /*
+       E.164:
+
+       +8801XXXXXXXXX
+       +14155552671
+       +447XXXXXXXXX
+    */
+
+    return /^\+[1-9]\d{7,14}$/
+        .test(phone);
 
 }
 
@@ -1002,18 +1143,15 @@ function showStatus(text){
 async function sendSMS(){
 
     const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
+        phoneInput.value.trim();
 
     const text =
-        messageInput
-            .value
-            .trim();
+        messageInput.value.trim();
 
 
-    /* PHONE CHECK */
+    /* ================================
+       PHONE EMPTY
+    ================================= */
 
     if(!phone){
 
@@ -1022,46 +1160,49 @@ async function sendSMS(){
             "error"
         );
 
-        return;
+        phoneInput.focus();
 
+        return;
     }
 
 
-    /*
-       E.164 format:
+    /* ================================
+       PHONE FORMAT
+    ================================= */
 
-       +8801XXXXXXXXX
-       +14155552671
-       +447XXXXXXXXX
-    */
-
-    if(
-        !/^\+[1-9]\d{7,14}$/.test(phone)
-    ){
+    if(!isValidPhone(phone)){
 
         showResult(
-            "Enter a valid international number starting with + and country code.",
+            "Enter a valid international number, for example +8801XXXXXXXXX.",
             "error"
         );
 
-        return;
+        phoneInput.focus();
 
+        return;
     }
 
 
-    /* MESSAGE CHECK */
+    /* ================================
+       MESSAGE EMPTY
+    ================================= */
 
     if(!text){
 
         showResult(
-            "Please write a message.",
+            "Please write your message.",
             "error"
         );
 
-        return;
+        messageInput.focus();
 
+        return;
     }
 
+
+    /* ================================
+       MESSAGE LENGTH
+    ================================= */
 
     if(text.length > 500){
 
@@ -1071,57 +1212,40 @@ async function sendSMS(){
         );
 
         return;
-
     }
 
 
-    /* BUTTON */
+    /* ================================
+       LOADING
+    ================================= */
 
-    const button =
-        document.getElementById(
-            "sendBtn"
-        );
-
-    const sendText =
-        document.getElementById(
-            "sendText"
-        );
-
-    const loader =
-        document.getElementById(
-            "loading"
-        );
-
-
-    button.disabled = true;
+    sendBtn.disabled =
+        true;
 
     sendText.style.display =
         "none";
 
-    loader.style.display =
+    loading.style.display =
         "block";
 
+    result.innerHTML = "";
 
-    document.getElementById(
-        "result"
-    ).innerHTML = "";
-
-    document.getElementById(
-        "statusBox"
-    ).style.display = "none";
+    clearStatus();
 
 
     try{
 
         /*
-           Textbelt officially supports
-           browser Fetch/CORS requests.
-
-           IMPORTANT:
-           Do NOT put "+" into a manually
-           constructed URL. JSON preserves
-           the "+" correctly.
-        */
+         * Textbelt official browser API
+         *
+         * POST:
+         * https://textbelt.com/text
+         *
+         * JSON:
+         * phone
+         * message
+         * key
+         */
 
         const response =
             await fetch(
@@ -1150,11 +1274,33 @@ async function sendSMS(){
             );
 
 
+        /*
+         * If fetch itself fails,
+         * response will not exist.
+         */
+
+        if(!response){
+
+            throw new Error(
+                "No response received from Textbelt."
+            );
+
+        }
+
+
+        /* ================================
+           READ RESPONSE
+        ================================= */
+
         const data =
             await response
                 .json()
                 .catch(
-                    () => ({})
+                    function(){
+
+                        return null;
+
+                    }
                 );
 
 
@@ -1164,7 +1310,22 @@ async function sendSMS(){
         );
 
 
-        /* API ERROR */
+        /* ================================
+           INVALID RESPONSE
+        ================================= */
+
+        if(!data){
+
+            throw new Error(
+                "Textbelt returned an invalid response."
+            );
+
+        }
+
+
+        /* ================================
+           API ERROR
+        ================================= */
 
         if(!data.success){
 
@@ -1172,14 +1333,17 @@ async function sendSMS(){
                 data.error ||
                 "Textbelt could not send the SMS.";
 
+
             if(
-                data.quotaRemaining === 0
+                data.quotaRemaining !== undefined
             ){
 
                 errorMessage +=
-                    " The free quota is exhausted.";
+                    " Remaining quota: " +
+                    data.quotaRemaining;
 
             }
+
 
             throw new Error(
                 errorMessage
@@ -1188,7 +1352,9 @@ async function sendSMS(){
         }
 
 
-        /* SUCCESS */
+        /* ================================
+           SUCCESS
+        ================================= */
 
         showResult(
             "✓ SMS request accepted successfully.",
@@ -1196,21 +1362,43 @@ async function sendSMS(){
         );
 
 
+        /*
+         * Show Text ID and quota
+         */
+
+        let statusText =
+            "SMS accepted";
+
         if(
-            data.quotaRemaining !== undefined
+            data.textId !== undefined
         ){
 
-            showStatus(
-                "Textbelt quota remaining: " +
-                data.quotaRemaining +
+            statusText +=
                 " • Text ID: " +
-                (data.textId || "N/A")
-            );
+                data.textId;
 
         }
 
 
-        /* CLEAR MESSAGE */
+        if(
+            data.quotaRemaining !== undefined
+        ){
+
+            statusText +=
+                " • Remaining quota: " +
+                data.quotaRemaining;
+
+        }
+
+
+        showStatus(
+            statusText
+        );
+
+
+        /* ================================
+           CLEAR MESSAGE
+        ================================= */
 
         messageInput.value = "";
 
@@ -1218,14 +1406,13 @@ async function sendSMS(){
             "0 / 500";
 
 
-        /*
-           If Textbelt gives a textId,
-           check delivery status.
-        */
+        /* ================================
+           CHECK DELIVERY
+        ================================= */
 
         if(data.textId){
 
-            checkDeliveryStatus(
+            checkDelivery(
                 data.textId
             );
 
@@ -1234,23 +1421,45 @@ async function sendSMS(){
 
     }catch(error){
 
-        console.error(error);
-
-        showResult(
-            "✕ " +
-            error.message,
-            "error"
+        console.error(
+            "SMS ERROR:",
+            error
         );
+
+
+        /*
+         * Browser/network error
+         */
+
+        if(
+            error instanceof
+            TypeError
+        ){
+
+            showResult(
+                "✕ Could not connect to Textbelt. Check your internet connection or browser/network blocking.",
+                "error"
+            );
+
+        }else{
+
+            showResult(
+                "✕ " +
+                error.message,
+                "error"
+            );
+
+        }
 
     }finally{
 
-        button.disabled =
+        sendBtn.disabled =
             false;
 
         sendText.style.display =
             "inline";
 
-        loader.style.display =
+        loading.style.display =
             "none";
 
     }
@@ -1262,39 +1471,54 @@ async function sendSMS(){
    DELIVERY STATUS
 ===================================== */
 
-async function checkDeliveryStatus(
+async function checkDelivery(
     textId
 ){
 
     try{
 
         /*
-           Textbelt provides:
-
-           /status/<textId>
-        */
+         * Textbelt:
+         * GET /status/<textId>
+         */
 
         const response =
             await fetch(
                 "https://textbelt.com/status/" +
-                encodeURIComponent(textId)
+                encodeURIComponent(
+                    textId
+                )
             );
+
+
+        if(!response.ok){
+
+            return;
+
+        }
 
 
         const data =
             await response
                 .json()
                 .catch(
-                    () => ({})
+                    function(){
+
+                        return null;
+
+                    }
                 );
 
 
-        if(data.status){
+        if(
+            data &&
+            data.status
+        ){
 
             showStatus(
                 "Text ID: " +
                 textId +
-                " • Status: " +
+                " • Delivery status: " +
                 data.status
             );
 
@@ -1303,7 +1527,7 @@ async function checkDeliveryStatus(
     }catch(error){
 
         console.log(
-            "Status check failed:",
+            "Delivery status error:",
             error
         );
 
@@ -1313,27 +1537,46 @@ async function checkDeliveryStatus(
 
 
 /* =====================================
-   ENTER KEY BEHAVIOR
+   PHONE ENTER KEY
 ===================================== */
 
-document
-    .getElementById("phone")
-    .addEventListener(
-        "keydown",
-        function(event){
+phoneInput.addEventListener(
+    "keydown",
+    function(event){
 
-            if(
-                event.key === "Enter"
-            ){
+        if(
+            event.key === "Enter"
+        ){
 
-                messageInput.focus();
-
-            }
+            messageInput.focus();
 
         }
-    );
+
+    }
+);
+
+
+/* =====================================
+   CTRL + ENTER TO SEND
+===================================== */
+
+messageInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.ctrlKey &&
+            event.key === "Enter"
+        ){
+
+            sendSMS();
+
+        }
+
+    }
+);
 
 </script>
 
 </body>
-      </html>
+    </html>
