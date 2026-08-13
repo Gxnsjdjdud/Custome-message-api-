@@ -1,841 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SwiftSMS — Custom SMS</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#070914;
-    color:#fff;
-    min-height:100vh;
-    overflow-x:hidden;
-}
-
-/* =========================
-   BACKGROUND
-========================= */
-
-.bg{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    z-index:-1;
-}
-
-.blob{
-    position:absolute;
-    width:330px;
-    height:330px;
-    border-radius:50%;
-    filter:blur(100px);
-    opacity:.28;
-    animation:move 9s infinite alternate ease-in-out;
-}
-
-.blob1{
-    background:#7657ff;
-    top:-120px;
-    left:-100px;
-}
-
-.blob2{
-    background:#00bfff;
-    right:-120px;
-    top:260px;
-    animation-delay:2s;
-}
-
-.blob3{
-    background:#b64cff;
-    bottom:-150px;
-    left:40%;
-    animation-delay:4s;
-}
-
-@keyframes move{
-    from{
-        transform:translate(0,0);
-    }
-
-    to{
-        transform:translate(50px,-40px);
-    }
-}
-
-/* =========================
-   NAVBAR
-========================= */
-
-nav{
-    width:92%;
-    max-width:1100px;
-    height:80px;
-    margin:auto;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.logo{
-    font-size:22px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#8c75ff;
-}
-
-.nav-btn{
-    padding:11px 18px;
-    border-radius:12px;
-
-    color:white;
-    background:rgba(255,255,255,.07);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    cursor:pointer;
-    transition:.3s;
-}
-
-.nav-btn:hover{
-    background:rgba(255,255,255,.14);
-    transform:translateY(-2px);
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    width:92%;
-    max-width:1100px;
-    margin:auto;
-
-    text-align:center;
-
-    padding:90px 0 100px;
-}
-
-.badge{
-    display:inline-block;
-
-    padding:8px 16px;
-
-    border-radius:50px;
-
-    background:rgba(255,255,255,.05);
-
-    border:
-        1px solid rgba(255,255,255,.12);
-
-    color:#bbb1ff;
-
-    font-size:13px;
-
-    animation:fadeDown .8s ease;
-}
-
-h1{
-    margin-top:25px;
-
-    font-size:
-        clamp(48px,9vw,90px);
-
-    line-height:.95;
-
-    letter-spacing:-4px;
-
-    animation:fadeUp .8s ease;
-}
-
-h1 span{
-    display:block;
-
-    background:
-        linear-gradient(
-            90deg,
-            #816dff,
-            #00d4ff,
-            #b765ff
-        );
-
-    -webkit-background-clip:text;
-
-    color:transparent;
-}
-
-.hero p{
-    max-width:650px;
-
-    margin:30px auto;
-
-    color:#a3a7b8;
-
-    font-size:17px;
-
-    line-height:1.7;
-}
-
-.start-btn{
-    padding:16px 30px;
-
-    border:none;
-
-    border-radius:15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #705cff,
-            #9b52ff
-        );
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 15px 45px
-        rgba(110,80,255,.3);
-
-    transition:.3s;
-}
-
-.start-btn:hover{
-    transform:
-        translateY(-4px)
-        scale(1.02);
-
-    box-shadow:
-        0 20px 60px
-        rgba(110,80,255,.45);
-}
-
-/* =========================
-   FEATURES
-========================= */
-
-.features{
-    max-width:1000px;
-
-    margin:70px auto 0;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:18px;
-}
-
-.feature{
-    padding:25px;
-
-    border-radius:20px;
-
-    background:
-        rgba(255,255,255,.045);
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(15px);
-
-    transition:.3s;
-}
-
-.feature:hover{
-    transform:translateY(-8px);
-
-    border-color:
-        rgba(130,110,255,.4);
-
-    background:
-        rgba(255,255,255,.07);
-}
-
-.icon{
-    font-size:30px;
-
-    margin-bottom:15px;
-}
-
-.feature h3{
-    margin-bottom:8px;
-}
-
-.feature p{
-    font-size:13px;
-
-    color:#858a9d;
-
-    line-height:1.5;
-}
-
-/* =========================
-   SEND SECTION
-========================= */
-
-#sendSection{
-    width:92%;
-    max-width:700px;
-
-    margin:auto;
-
-    padding:70px 0 120px;
-}
-
-.label{
-    text-align:center;
-
-    color:#8c75ff;
-
-    font-size:12px;
-
-    font-weight:bold;
-
-    letter-spacing:2px;
-}
-
-.send-title{
-    text-align:center;
-
-    margin-top:12px;
-
-    font-size:42px;
-}
-
-.send-title span{
-    color:#8c75ff;
-}
-
-.description{
-    text-align:center;
-
-    color:#8d92a4;
-
-    margin:
-        12px 0 35px;
-}
-
-/* =========================
-   CARD
-========================= */
-
-.card{
-    padding:30px;
-
-    border-radius:25px;
-
-    background:
-        rgba(13,16,31,.85);
-
-    border:
-        1px solid rgba(255,255,255,.09);
-
-    backdrop-filter:blur(20px);
-
-    box-shadow:
-        0 30px 80px
-        rgba(0,0,0,.4);
-
-    animation:fadeUp .8s ease;
-}
-
-.group{
-    margin-bottom:23px;
-}
-
-label{
-    display:block;
-
-    margin-bottom:10px;
-
-    font-size:14px;
-
-    font-weight:bold;
-}
-
-input,
-textarea{
-    width:100%;
-
-    padding:15px;
-
-    border-radius:14px;
-
-    outline:none;
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    background:
-        rgba(255,255,255,.045);
-
-    color:white;
-
-    font-size:15px;
-
-    transition:.25s;
-}
-
-input:focus,
-textarea:focus{
-    border-color:#8270ff;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(130,112,255,.1);
-}
-
-textarea{
-    min-height:160px;
-
-    resize:vertical;
-
-    line-height:1.6;
-}
-
-.help{
-    display:block;
-
-    margin-top:7px;
-
-    color:#707588;
-
-    font-size:12px;
-}
-
-.message-top{
-    display:flex;
-
-    justify-content:space-between;
-}
-
-#counter{
-    color:#777c8e;
-
-    font-size:12px;
-}
-
-/* =========================
-   NOTICE
-========================= */
-
-.notice{
-    padding:13px;
-
-    margin-bottom:20px;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,193,7,.05);
-
-    border:
-        1px solid rgba(255,193,7,.12);
-
-    color:#9fa4b5;
-
-    font-size:12px;
-
-    line-height:1.5;
-}
-
-/* =========================
-   SEND BUTTON
-========================= */
-
-#sendBtn{
-    width:100%;
-
-    min-height:52px;
-
-    padding:16px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #705cff,
-            #9855ff
-        );
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-#sendBtn:hover:not(:disabled){
-    transform:translateY(-2px);
-}
-
-#sendBtn:disabled{
-    opacity:.6;
-
-    cursor:not-allowed;
-}
-
-/* =========================
-   LOADER
-========================= */
-
-.loading{
-    display:none;
-
-    width:19px;
-    height:19px;
-
-    border:
-        3px solid
-        rgba(255,255,255,.3);
-
-    border-top-color:white;
-
-    border-radius:50%;
-
-    animation:
-        spin .7s linear infinite;
-
-    margin:auto;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-/* =========================
-   RESULT
-========================= */
-
-#result{
-    margin-top:18px;
-}
-
-.success,
-.error{
-    padding:14px;
-
-    border-radius:12px;
-
-    text-align:center;
-
-    font-size:14px;
-
-    line-height:1.5;
-}
-
-.success{
-    background:
-        rgba(0,220,130,.08);
-
-    border:
-        1px solid
-        rgba(0,220,130,.2);
-
-    color:#61ffad;
-}
-
-.error{
-    background:
-        rgba(255,60,60,.08);
-
-    border:
-        1px solid
-        rgba(255,60,60,.2);
-
-    color:#ff7777;
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.status{
-    display:none;
-
-    margin-top:12px;
-
-    padding:12px;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.04);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    color:#9ea3b5;
-
-    text-align:center;
-
-    font-size:12px;
-
-    line-height:1.5;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    width:92%;
-
-    max-width:1100px;
-
-    margin:auto;
-
-    padding:
-        25px 0 35px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.06);
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:#606577;
-
-    font-size:12px;
-}
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes fadeUp{
-
-    from{
-        opacity:0;
-
-        transform:
-            translateY(30px);
-    }
-
-    to{
-        opacity:1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-@keyframes fadeDown{
-
-    from{
-        opacity:0;
-
-        transform:
-            translateY(-20px);
-    }
-
-    to{
-        opacity:1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:700px){
-
-    .hero{
-        padding-top:60px;
-    }
-
-    h1{
-        letter-spacing:-2px;
-    }
-
-    .features{
-        grid-template-columns:1fr;
-    }
-
-    .send-title{
-        font-size:34px;
-    }
-
-    .card{
-        padding:20px;
-    }
-
-    footer{
-        flex-direction:column;
-
-        text-align:center;
-
-        gap:8px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BD SMS Manager</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        button,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* LOGIN */
+
+        #loginPage {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #0f172a, #2563eb);
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.25);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .login-box p {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        /* APP */
+
+        #app {
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        .brand span {
+            color: #111827;
+        }
+
+        .logout-btn {
+            border: 0;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #111827;
+            padding: 20px 12px;
+        }
+
+        .nav-btn {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 14px 15px;
+            text-align: left;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .content {
+            flex: 1;
+            padding: 28px;
+            max-width: 1500px;
+            margin: auto;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            margin-bottom: 22px;
+        }
+
+        .page-title h2 {
+            font-size: 27px;
+            margin-bottom: 5px;
+        }
+
+        .page-title p {
+            color: #64748b;
+        }
+
+        /* CARDS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-icon {
+            font-size: 27px;
+            margin-bottom: 14px;
+        }
+
+        .stat-card small {
+            color: #64748b;
+        }
+
+        .stat-card h3 {
+            font-size: 27px;
+            margin-top: 6px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            padding: 22px;
+        }
+
+        .card h3 {
+            margin-bottom: 18px;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 13px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .primary-btn {
+            width: 100%;
+            border: 0;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .primary-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary-btn {
+            border: 0;
+            border-radius: 10px;
+            background: #e5e7eb;
+            color: #111827;
+            padding: 11px 15px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .number-help {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .failed {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        /* BALANCE */
+
+        .balance-box {
+            text-align: center;
+            padding: 35px;
+        }
+
+        .balance-number {
+            font-size: 45px;
+            font-weight: 800;
+            color: #2563eb;
+            margin: 15px 0;
+        }
+
+        /* TOAST */
+
+        #toastContainer {
+            position: fixed;
+            right: 20px;
+            top: 85px;
+            z-index: 9999;
+            width: min(360px, calc(100% - 40px));
+        }
+
+        .toast {
+            background: white;
+            border-left: 5px solid #2563eb;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,.15);
+            font-size: 14px;
+        }
+
+        .toast.error {
+            border-left-color: #dc2626;
+        }
+
+        .toast.success-toast {
+            border-left-color: #16a34a;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+                display: flex;
+                overflow-x: auto;
+                gap: 6px;
+                padding: 10px;
+            }
+
+            .nav-btn {
+                width: auto;
+                min-width: max-content;
+                margin: 0;
+                padding: 11px 13px;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-box {
+                padding: 25px 20px;
+            }
+
+            .page-title h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
 <!-- =========================
-     BACKGROUND
+     LOGIN
 ========================= -->
 
-<div class="bg">
+<section id="loginPage">
 
-    <div class="blob blob1"></div>
+    <div class="login-box">
 
-    <div class="blob blob2"></div>
+        <div class="logo">📱</div>
 
-    <div class="blob blob3"></div>
+        <h1>BD SMS Manager</h1>
 
-</div>
+        <p>Admin Login Panel</p>
 
+        <form id="loginForm">
 
-<!-- =========================
-     NAVBAR
-========================= -->
-
-<nav>
-
-    <div class="logo">
-        <span>✦</span> SwiftSMS
-    </div>
-
-    <button
-        class="nav-btn"
-        onclick="goToSend()"
-    >
-        Get Started
-    </button>
-
-</nav>
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<section class="hero">
-
-    <div class="badge">
-        ⚡ Simple • Fast • Secure
-    </div>
-
-    <h1>
-
-        Send SMS
-
-        <span>
-            Simply.
-        </span>
-
-    </h1>
-
-    <p>
-        Send a custom text message
-        to an international phone number
-        through a simple interface.
-    </p>
-
-    <button
-        class="start-btn"
-        onclick="goToSend()"
-    >
-        Get Started →
-    </button>
-
-
-    <div class="features">
-
-
-        <div class="feature">
-
-            <div class="icon">
-                📱
+            <div class="form-group">
+                <label>Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                    required
+                >
             </div>
 
-            <h3>
-                International
-            </h3>
-
-            <p>
-                Enter a valid international
-                phone number.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="icon">
-                ✍️
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                    required
+                >
             </div>
 
-            <h3>
-                Custom Message
-            </h3>
+            <button class="primary-btn" type="submit">
+                🔐 Login
+            </button>
 
-            <p>
-                Write your own message
-                before sending.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="icon">
-                ⚡
-            </div>
-
-            <h3>
-                Fast API
-            </h3>
-
-            <p>
-                Send through the
-                Textbelt SMS API.
-            </p>
-
-        </div>
+        </form>
 
     </div>
 
@@ -843,738 +474,1063 @@ footer{
 
 
 <!-- =========================
-     SEND SECTION
+     MAIN APP
 ========================= -->
 
-<section id="sendSection">
+<section id="app" class="hidden">
 
-    <div class="label">
-        ✦ SMS CENTER
-    </div>
+    <header class="topbar">
 
-    <h2 class="send-title">
-
-        Send your
-
-        <span>
-            message
-        </span>
-
-    </h2>
-
-    <p class="description">
-        Enter an international number
-        and your custom message.
-    </p>
-
-
-    <div class="card">
-
-
-        <!-- PHONE -->
-
-        <div class="group">
-
-            <label>
-                📞 Phone Number
-            </label>
-
-            <input
-                id="phone"
-                type="tel"
-                inputmode="tel"
-                autocomplete="tel"
-                placeholder="+8801XXXXXXXXX"
-            >
-
-            <span class="help">
-                Example:
-                +8801XXXXXXXXX
-            </span>
-
+        <div class="brand">
+            📱 BD <span>SMS Manager</span>
         </div>
 
-
-        <!-- MESSAGE -->
-
-        <div class="group">
-
-            <div class="message-top">
-
-                <label>
-                    💬 Custom Message
-                </label>
-
-                <span id="counter">
-                    0 / 500
-                </span>
-
-            </div>
-
-            <textarea
-                id="message"
-                maxlength="500"
-                placeholder="Write your message here..."
-            ></textarea>
-
-        </div>
-
-
-        <!-- NOTICE -->
-
-        <div class="notice">
-
-            🔒 Please only send messages
-            to people who have consented
-            to receive your communication.
-
-        </div>
-
-
-        <!-- BUTTON -->
-
-        <button
-            id="sendBtn"
-            onclick="sendSMS()"
-        >
-
-            <span id="sendText">
-                Send SMS
-            </span>
-
-            <span
-                id="loading"
-                class="loading"
-            ></span>
-
+        <button class="logout-btn" onclick="logout()">
+            Logout
         </button>
 
-
-        <!-- RESULT -->
-
-        <div id="result"></div>
+    </header>
 
 
-        <!-- STATUS -->
+    <div class="layout">
 
-        <div
-            id="status"
-            class="status"
-        ></div>
+        <!-- SIDEBAR -->
 
+        <aside class="sidebar">
+
+            <button class="nav-btn active" onclick="showPage('dashboard', this)">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-btn" onclick="showPage('single', this)">
+                📱 Single SMS
+            </button>
+
+            <button class="nav-btn" onclick="showPage('bulk', this)">
+                👥 Multiple SMS
+            </button>
+
+            <button class="nav-btn" onclick="showPage('balance', this)">
+                💰 API Balance
+            </button>
+
+            <button class="nav-btn" onclick="showPage('statistics', this)">
+                📊 Statistics
+            </button>
+
+            <button class="nav-btn" onclick="showPage('history', this)">
+                📋 SMS History
+            </button>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+
+        <main class="content">
+
+
+            <!-- =========================
+                 DASHBOARD
+            ========================= -->
+
+            <section id="dashboard" class="page active">
+
+                <div class="page-title">
+                    <h2>🏠 Dashboard</h2>
+                    <p>Manage your SMS service from one place.</p>
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📨</div>
+                        <small>Total SMS</small>
+                        <h3 id="totalSMS">0</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <small>Successful</small>
+                        <h3 id="successSMS">0</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">❌</div>
+                        <small>Failed</small>
+                        <h3 id="failedSMS">0</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <small>API Balance</small>
+                        <h3 id="dashboardBalance">--</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="grid-2">
+
+                    <div class="card">
+
+                        <h3>📱 Send SMS</h3>
+
+                        <p style="color:#64748b;margin-bottom:18px;">
+                            Send a consent-based transactional or business SMS.
+                        </p>
+
+                        <button
+                            class="primary-btn"
+                            onclick="showPage('single')"
+                        >
+                            Send Single SMS
+                        </button>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>📊 Quick Statistics</h3>
+
+                        <p style="color:#64748b;margin-bottom:18px;">
+                            View your recent SMS activity.
+                        </p>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="loadStats(); showPage('statistics')"
+                        >
+                            View Statistics
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SINGLE SMS
+            ========================= -->
+
+            <section id="single" class="page">
+
+                <div class="page-title">
+                    <h2>📱 Single SMS</h2>
+                    <p>Send one SMS to a Bangladesh mobile number.</p>
+                </div>
+
+
+                <div class="card">
+
+                    <form id="singleSMSForm">
+
+                        <div class="form-group">
+
+                            <label>Bangladesh Mobile Number</label>
+
+                            <input
+                                type="tel"
+                                id="singlePhone"
+                                placeholder="01XXXXXXXXX"
+                                maxlength="14"
+                                required
+                            >
+
+                            <div class="number-help">
+                                Supported formats: 01XXXXXXXXX, +8801XXXXXXXXX
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Message</label>
+
+                            <textarea
+                                id="singleMessage"
+                                maxlength="1000"
+                                placeholder="Enter your message..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            class="primary-btn"
+                            type="submit"
+                        >
+                            📤 Send SMS
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 BULK SMS
+            ========================= -->
+
+            <section id="bulk" class="page">
+
+                <div class="page-title">
+                    <h2>👥 Multiple Number SMS</h2>
+                    <p>Send approved business/transactional messages to multiple recipients.</p>
+                </div>
+
+
+                <div class="card">
+
+                    <form id="bulkSMSForm">
+
+                        <div class="form-group">
+
+                            <label>Mobile Numbers</label>
+
+                            <textarea
+                                id="bulkNumbers"
+                                placeholder="Put one number per line&#10;&#10;017XXXXXXXX&#10;018XXXXXXXX&#10;019XXXXXXXX"
+                                required
+                            ></textarea>
+
+                            <div class="number-help">
+                                Maximum 100 numbers per request. Duplicate numbers will be removed.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Message</label>
+
+                            <textarea
+                                id="bulkMessage"
+                                maxlength="1000"
+                                placeholder="Enter your message..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            class="primary-btn"
+                            type="submit"
+                        >
+                            📤 Send Multiple SMS
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 BALANCE
+            ============================= -->
+
+            <section id="balance" class="page">
+
+                <div class="page-title">
+                    <h2>💰 API Balance</h2>
+                    <p>Check your current SMS API balance.</p>
+                </div>
+
+
+                <div class="card balance-box">
+
+                    <div style="font-size:45px;">
+                        💰
+                    </div>
+
+                    <div class="balance-number" id="balanceValue">
+                        --
+                    </div>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="loadBalance()"
+                    >
+                        🔄 Refresh Balance
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 STATISTICS
+            ============================= -->
+
+            <section id="statistics" class="page">
+
+                <div class="page-title">
+                    <h2>📊 SMS Statistics</h2>
+                    <p>Overview of your SMS sending activity.</p>
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📨</div>
+                        <small>Total</small>
+                        <h3 id="statsTotal">0</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <small>Successful</small>
+                        <h3 id="statsSuccess">0</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">❌</div>
+                        <small>Failed</small>
+                        <h3 id="statsFailed">0</h3>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 HISTORY
+            ============================= -->
+
+            <section id="history" class="page">
+
+                <div class="page-title">
+                    <h2>📋 SMS History</h2>
+                    <p>Recently sent SMS records.</p>
+                </div>
+
+
+                <div class="card">
+
+                    <div style="margin-bottom:18px;display:flex;justify-content:flex-end;">
+                        <button
+                            class="secondary-btn"
+                            onclick="loadHistory()"
+                        >
+                            🔄 Refresh
+                        </button>
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Phone</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="historyBody">
+
+                                <tr>
+                                    <td colspan="5">
+                                        No records found.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
 
     </div>
 
 </section>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- TOAST -->
 
-<footer>
-
-    <span>
-        © 2026 SwiftSMS
-    </span>
-
-    <span>
-        Powered by Textbelt
-    </span>
-
-</footer>
+<div id="toastContainer"></div>
 
 
 <script>
 
-/* =====================================
-   TEXTBELT CONFIG
-===================================== */
+    /* =========================
+       BASIC HELPERS
+    ========================= */
 
-/*
-   Textbelt official free test key.
+    async function api(url, options = {}) {
 
-   1 free text per day.
-*/
-
-const TEXTBELT_KEY = "textbelt";
-
-const TEXTBELT_URL =
-    "https://textbelt.com/text";
-
-
-/* =====================================
-   NAVIGATION
-===================================== */
-
-function goToSend(){
-
-    document
-        .getElementById("sendSection")
-        .scrollIntoView({
-            behavior:"smooth"
+        const response = await fetch(url, {
+            credentials: "same-origin",
+            ...options,
+            headers: {
+                "Content-Type": "application/json",
+                ...(options.headers || {})
+            }
         });
 
-}
+        let data;
 
+        try {
+            data = await response.json();
+        } catch {
+            data = {
+                success: false,
+                error: "Invalid server response"
+            };
+        }
 
-/* =====================================
-   ELEMENTS
-===================================== */
+        if (response.status === 401) {
+            showLogin();
+        }
 
-const phoneInput =
-    document.getElementById("phone");
-
-const messageInput =
-    document.getElementById("message");
-
-const counter =
-    document.getElementById("counter");
-
-const sendBtn =
-    document.getElementById("sendBtn");
-
-const sendText =
-    document.getElementById("sendText");
-
-const loading =
-    document.getElementById("loading");
-
-const result =
-    document.getElementById("result");
-
-const statusBox =
-    document.getElementById("status");
-
-
-/* =====================================
-   COUNTER
-===================================== */
-
-messageInput.addEventListener(
-    "input",
-    function(){
-
-        counter.textContent =
-            messageInput.value.length +
-            " / 500";
-
-    }
-);
-
-
-/* =====================================
-   SHOW RESULT
-===================================== */
-
-function showResult(
-    text,
-    type
-){
-
-    result.innerHTML = "";
-
-    const box =
-        document.createElement("div");
-
-    box.className = type;
-
-    box.textContent = text;
-
-    result.appendChild(box);
-
-}
-
-
-/* =====================================
-   SHOW STATUS
-===================================== */
-
-function showStatus(text){
-
-    statusBox.style.display =
-        "block";
-
-    statusBox.textContent =
-        text;
-
-}
-
-
-/* =====================================
-   CLEAR STATUS
-===================================== */
-
-function clearStatus(){
-
-    statusBox.style.display =
-        "none";
-
-    statusBox.textContent =
-        "";
-
-}
-
-
-/* =====================================
-   VALIDATE PHONE
-===================================== */
-
-function isValidPhone(phone){
-
-    /*
-       E.164:
-
-       +8801XXXXXXXXX
-       +14155552671
-       +447XXXXXXXXX
-    */
-
-    return /^\+[1-9]\d{7,14}$/
-        .test(phone);
-
-}
-
-
-/* =====================================
-   SEND SMS
-===================================== */
-
-async function sendSMS(){
-
-    const phone =
-        phoneInput.value.trim();
-
-    const text =
-        messageInput.value.trim();
-
-
-    /* ================================
-       PHONE EMPTY
-    ================================= */
-
-    if(!phone){
-
-        showResult(
-            "Please enter a phone number.",
-            "error"
-        );
-
-        phoneInput.focus();
-
-        return;
+        return {
+            response,
+            data
+        };
     }
 
 
-    /* ================================
-       PHONE FORMAT
-    ================================= */
+    function toast(message, type = "success") {
 
-    if(!isValidPhone(phone)){
+        const container =
+            document.getElementById("toastContainer");
 
-        showResult(
-            "Enter a valid international number, for example +8801XXXXXXXXX.",
-            "error"
-        );
+        const item =
+            document.createElement("div");
 
-        phoneInput.focus();
+        item.className =
+            "toast " +
+            (type === "error"
+                ? "error"
+                : "success-toast");
 
-        return;
+        item.textContent = message;
+
+        container.appendChild(item);
+
+        setTimeout(() => {
+            item.remove();
+        }, 4000);
     }
 
 
-    /* ================================
-       MESSAGE EMPTY
-    ================================= */
+    /* =========================
+       LOGIN
+    ========================= */
 
-    if(!text){
+    document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function(e) {
 
-        showResult(
-            "Please write your message.",
-            "error"
-        );
+            e.preventDefault();
 
-        messageInput.focus();
+            const username =
+                document.getElementById("username").value.trim();
 
-        return;
-    }
+            const password =
+                document.getElementById("password").value;
 
-
-    /* ================================
-       MESSAGE LENGTH
-    ================================= */
-
-    if(text.length > 500){
-
-        showResult(
-            "Message cannot exceed 500 characters.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    /* ================================
-       LOADING
-    ================================= */
-
-    sendBtn.disabled =
-        true;
-
-    sendText.style.display =
-        "none";
-
-    loading.style.display =
-        "block";
-
-    result.innerHTML = "";
-
-    clearStatus();
-
-
-    try{
-
-        /*
-         * Textbelt official browser API
-         *
-         * POST:
-         * https://textbelt.com/text
-         *
-         * JSON:
-         * phone
-         * message
-         * key
-         */
-
-        const response =
-            await fetch(
-                TEXTBELT_URL,
+            const result = await api(
+                "/api/login",
                 {
-                    method:"POST",
+                    method: "POST",
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                }
+            );
 
-                    headers:{
-                        "Content-Type":
-                            "application/json",
+            if (result.data.success) {
 
-                        "Accept":
-                            "application/json"
-                    },
+                toast("Login successful");
 
-                    body:JSON.stringify({
+                showApp();
 
-                        phone:phone,
+                await refreshDashboard();
 
-                        message:text,
+            } else {
 
-                        key:TEXTBELT_KEY
+                toast(
+                    result.data.error || "Login failed",
+                    "error"
+                );
+            }
 
+        });
+
+
+    async function logout() {
+
+        await api(
+            "/api/logout",
+            {
+                method: "POST"
+            }
+        );
+
+        showLogin();
+
+        toast("Logged out");
+    }
+
+
+    function showLogin() {
+
+        document
+            .getElementById("loginPage")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("app")
+            .classList.add("hidden");
+    }
+
+
+    function showApp() {
+
+        document
+            .getElementById("loginPage")
+            .classList.add("hidden");
+
+        document
+            .getElementById("app")
+            .classList.remove("hidden");
+    }
+
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    function showPage(pageId, button = null) {
+
+        document
+            .querySelectorAll(".page")
+            .forEach(page => {
+                page.classList.remove("active");
+            });
+
+        const page =
+            document.getElementById(pageId);
+
+        if (page) {
+            page.classList.add("active");
+        }
+
+
+        document
+            .querySelectorAll(".nav-btn")
+            .forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+        if (button) {
+            button.classList.add("active");
+        }
+
+
+        if (pageId === "dashboard") {
+            refreshDashboard();
+        }
+
+        if (pageId === "balance") {
+            loadBalance();
+        }
+
+        if (pageId === "statistics") {
+            loadStats();
+        }
+
+        if (pageId === "history") {
+            loadHistory();
+        }
+    }
+
+
+    /* =========================
+       NUMBER VALIDATION
+    ========================= */
+
+    function normalizeBDNumber(number) {
+
+        number = String(number || "")
+            .trim()
+            .replace(/\s+/g, "")
+            .replace(/-/g, "");
+
+        if (number.startsWith("+880")) {
+            number = "0" + number.slice(4);
+        }
+
+        else if (number.startsWith("880")) {
+            number = "0" + number.slice(3);
+        }
+
+        else if (/^1[3-9]\d{8}$/.test(number)) {
+            number = "0" + number;
+        }
+
+        if (/^01[3-9]\d{8}$/.test(number)) {
+            return number;
+        }
+
+        return null;
+    }
+
+
+    /* =========================
+       SINGLE SMS
+    ========================= */
+
+    document
+        .getElementById("singleSMSForm")
+        .addEventListener("submit", async function(e) {
+
+            e.preventDefault();
+
+            const phone =
+                normalizeBDNumber(
+                    document.getElementById("singlePhone").value
+                );
+
+            const message =
+                document.getElementById("singleMessage").value.trim();
+
+
+            if (!phone) {
+
+                toast(
+                    "Please enter a valid Bangladesh number.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (!message) {
+
+                toast(
+                    "Message cannot be empty.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const result = await api(
+                "/api/send-sms",
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        phone,
+                        message
                     })
                 }
             );
 
 
-        /*
-         * If fetch itself fails,
-         * response will not exist.
-         */
+            if (result.data.success) {
 
-        if(!response){
-
-            throw new Error(
-                "No response received from Textbelt."
-            );
-
-        }
-
-
-        /* ================================
-           READ RESPONSE
-        ================================= */
-
-        const data =
-            await response
-                .json()
-                .catch(
-                    function(){
-
-                        return null;
-
-                    }
+                toast(
+                    "SMS sent successfully."
                 );
 
+                document
+                    .getElementById("singleSMSForm")
+                    .reset();
 
-        console.log(
-            "Textbelt response:",
-            data
-        );
+                refreshDashboard();
 
+            } else {
 
-        /* ================================
-           INVALID RESPONSE
-        ================================= */
+                toast(
+                    result.data.error ||
+                    "SMS sending failed.",
+                    "error"
+                );
+            }
 
-        if(!data){
-
-            throw new Error(
-                "Textbelt returned an invalid response."
-            );
-
-        }
+        });
 
 
-        /* ================================
-           API ERROR
-        ================================= */
+    /* =========================
+       BULK SMS
+    ========================= */
 
-        if(!data.success){
+    document
+        .getElementById("bulkSMSForm")
+        .addEventListener("submit", async function(e) {
 
-            let errorMessage =
-                data.error ||
-                "Textbelt could not send the SMS.";
+            e.preventDefault();
 
 
-            if(
-                data.quotaRemaining !== undefined
-            ){
+            const raw =
+                document
+                    .getElementById("bulkNumbers")
+                    .value;
 
-                errorMessage +=
-                    " Remaining quota: " +
-                    data.quotaRemaining;
 
+            const message =
+                document
+                    .getElementById("bulkMessage")
+                    .value
+                    .trim();
+
+
+            const numbers =
+                raw
+                    .split(/\r?\n|,|;/)
+                    .map(x => normalizeBDNumber(x))
+                    .filter(Boolean);
+
+
+            const uniqueNumbers =
+                [...new Set(numbers)];
+
+
+            if (!uniqueNumbers.length) {
+
+                toast(
+                    "No valid Bangladesh numbers found.",
+                    "error"
+                );
+
+                return;
             }
 
 
-            throw new Error(
-                errorMessage
-            );
+            if (uniqueNumbers.length > 100) {
 
-        }
-
-
-        /* ================================
-           SUCCESS
-        ================================= */
-
-        showResult(
-            "✓ SMS request accepted successfully.",
-            "success"
-        );
-
-
-        /*
-         * Show Text ID and quota
-         */
-
-        let statusText =
-            "SMS accepted";
-
-        if(
-            data.textId !== undefined
-        ){
-
-            statusText +=
-                " • Text ID: " +
-                data.textId;
-
-        }
-
-
-        if(
-            data.quotaRemaining !== undefined
-        ){
-
-            statusText +=
-                " • Remaining quota: " +
-                data.quotaRemaining;
-
-        }
-
-
-        showStatus(
-            statusText
-        );
-
-
-        /* ================================
-           CLEAR MESSAGE
-        ================================= */
-
-        messageInput.value = "";
-
-        counter.textContent =
-            "0 / 500";
-
-
-        /* ================================
-           CHECK DELIVERY
-        ================================= */
-
-        if(data.textId){
-
-            checkDelivery(
-                data.textId
-            );
-
-        }
-
-
-    }catch(error){
-
-        console.error(
-            "SMS ERROR:",
-            error
-        );
-
-
-        /*
-         * Browser/network error
-         */
-
-        if(
-            error instanceof
-            TypeError
-        ){
-
-            showResult(
-                "✕ Could not connect to Textbelt. Check your internet connection or browser/network blocking.",
-                "error"
-            );
-
-        }else{
-
-            showResult(
-                "✕ " +
-                error.message,
-                "error"
-            );
-
-        }
-
-    }finally{
-
-        sendBtn.disabled =
-            false;
-
-        sendText.style.display =
-            "inline";
-
-        loading.style.display =
-            "none";
-
-    }
-
-}
-
-
-/* =====================================
-   DELIVERY STATUS
-===================================== */
-
-async function checkDelivery(
-    textId
-){
-
-    try{
-
-        /*
-         * Textbelt:
-         * GET /status/<textId>
-         */
-
-        const response =
-            await fetch(
-                "https://textbelt.com/status/" +
-                encodeURIComponent(
-                    textId
-                )
-            );
-
-
-        if(!response.ok){
-
-            return;
-
-        }
-
-
-        const data =
-            await response
-                .json()
-                .catch(
-                    function(){
-
-                        return null;
-
-                    }
+                toast(
+                    "Maximum 100 numbers per request.",
+                    "error"
                 );
 
+                return;
+            }
 
-        if(
-            data &&
-            data.status
-        ){
 
-            showStatus(
-                "Text ID: " +
-                textId +
-                " • Delivery status: " +
-                data.status
+            if (!message) {
+
+                toast(
+                    "Message cannot be empty.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const result = await api(
+                "/api/send-bulk",
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        numbers: uniqueNumbers,
+                        message
+                    })
+                }
             );
 
+
+            if (result.data.success) {
+
+                toast(
+                    `Completed: ${result.data.sent} sent, ${result.data.failed} failed.`
+                );
+
+                document
+                    .getElementById("bulkSMSForm")
+                    .reset();
+
+                refreshDashboard();
+
+            } else {
+
+                toast(
+                    result.data.error ||
+                    "Bulk SMS failed.",
+                    "error"
+                );
+            }
+
+        });
+
+
+    /* =========================
+       BALANCE
+    ========================= */
+
+    async function loadBalance() {
+
+        const result =
+            await api("/api/balance");
+
+
+        if (!result.data.success) {
+
+            toast(
+                result.data.error ||
+                "Unable to load balance.",
+                "error"
+            );
+
+            return;
         }
 
-    }catch(error){
 
-        console.log(
-            "Delivery status error:",
-            error
-        );
-
-    }
-
-}
+        let value =
+            result.data.data;
 
 
-/* =====================================
-   PHONE ENTER KEY
-===================================== */
+        if (typeof value === "object") {
 
-phoneInput.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            event.key === "Enter"
-        ){
-
-            messageInput.focus();
-
+            value =
+                value.balance ??
+                value.Balance ??
+                value.sms_balance ??
+                JSON.stringify(value);
         }
 
+
+        document
+            .getElementById("balanceValue")
+            .textContent = value ?? "--";
+
+
+        document
+            .getElementById("dashboardBalance")
+            .textContent = value ?? "--";
     }
-);
 
 
-/* =====================================
-   CTRL + ENTER TO SEND
-===================================== */
+    /* =========================
+       STATISTICS
+    ========================= */
 
-messageInput.addEventListener(
-    "keydown",
-    function(event){
+    async function loadStats() {
 
-        if(
-            event.ctrlKey &&
-            event.key === "Enter"
-        ){
+        const result =
+            await api("/api/stats");
 
-            sendSMS();
 
+        if (!result.data.success) {
+            return;
         }
 
+
+        document
+            .getElementById("statsTotal")
+            .textContent =
+            result.data.total;
+
+
+        document
+            .getElementById("statsSuccess")
+            .textContent =
+            result.data.successful;
+
+
+        document
+            .getElementById("statsFailed")
+            .textContent =
+            result.data.failed;
+
+
+        document
+            .getElementById("totalSMS")
+            .textContent =
+            result.data.total;
+
+
+        document
+            .getElementById("successSMS")
+            .textContent =
+            result.data.successful;
+
+
+        document
+            .getElementById("failedSMS")
+            .textContent =
+            result.data.failed;
     }
-);
+
+
+    /* =========================
+       HISTORY
+    ========================= */
+
+    async function loadHistory() {
+
+        const result =
+            await api("/api/history?limit=100");
+
+
+        const body =
+            document.getElementById("historyBody");
+
+
+        if (!result.data.success) {
+
+            body.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        Unable to load history.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        if (!result.data.history.length) {
+
+            body.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        No SMS records found.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        body.innerHTML =
+            result.data.history
+                .map(item => {
+
+                    const statusClass =
+                        item.status === "success"
+                            ? "success"
+                            : "failed";
+
+
+                    const statusText =
+                        item.status === "success"
+                            ? "Success"
+                            : "Failed";
+
+
+                    return `
+                        <tr>
+
+                            <td>${escapeHTML(item.id)}</td>
+
+                            <td>${escapeHTML(item.phone)}</td>
+
+                            <td>
+                                ${escapeHTML(item.message)}
+                            </td>
+
+                            <td>
+                                <span class="badge ${statusClass}">
+                                    ${statusText}
+                                </span>
+                            </td>
+
+                            <td>
+                                ${escapeHTML(item.created_at)}
+                            </td>
+
+                        </tr>
+                    `;
+
+                })
+                .join("");
+    }
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================= */
+
+    function escapeHTML(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /* =========================
+       DASHBOARD REFRESH
+    ========================= */
+
+    async function refreshDashboard() {
+
+        await Promise.all([
+            loadStats(),
+            loadBalance()
+        ]);
+    }
+
+
+    /* =========================
+       INITIAL AUTH CHECK
+    ========================= */
+
+    async function checkLogin() {
+
+        try {
+
+            const result =
+                await api("/api/me");
+
+
+            if (result.data.logged_in) {
+
+                showApp();
+
+                await refreshDashboard();
+
+            } else {
+
+                showLogin();
+            }
+
+        } catch {
+
+            showLogin();
+        }
+    }
+
+
+    checkLogin();
 
 </script>
 
